@@ -1,0 +1,27 @@
+# Game of Life
+
+Implementation of Conway's Game of Life written in Python.
+
+## Requirements
+Pygame library
+
+```
+pip install pygame
+```
+
+## Controls
+Space - Play/Pause
+
+Esc - Exit
+
+Tab - Randomize cells
+
+Backspace - Set all cells dead
+
+Left MB - Set cell alive
+
+Right MB - Set cell dead
+
+Up arrow - Speed up simulation
+
+Down arrow - Slow down simulation
