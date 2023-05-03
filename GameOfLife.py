@@ -5,14 +5,12 @@ import time
 
 
 
-class Colors:
-    def __init__(self):
-        self.grid = "#cccccc"
-        self.pause = "#213d69"
-        self.dead = "#ffffff"
-        self.deadHover = "#c7c7c7"
-        self.alive = "#34ebcf"
-        self.aliveHover = "#209685"
+COLOR_GRID = "#cccccc"
+COLOR_PAUSE = "#213d69"
+COLOR_DEAD = "#ffffff"
+COLOR_DEAD_HOVER = "#c7c7c7"
+COLOR_ALIVE = "#34ebcf"
+COLOR_ALIVE_HOVER = "#209685"
 
 
 
@@ -29,21 +27,21 @@ class Cell:
         return i*(size+1)+1
 
 
-    def draw(self, window, pause, colors, i, j, size):
+    def draw(self, window, pause, i, j, size):
         color = None
 
         if self.alive:
-            color = colors.alive
+            color = COLOR_ALIVE
         else:
-            color = colors.dead
+            color = COLOR_DEAD
 
         if pause:
             pos = pygame.mouse.get_pos()
             if self.isCursor(pos[0], pos[1], i, j, size):
                 if self.alive:
-                    color = colors.aliveHover
+                    color = COLOR_ALIVE_HOVER
                 else:
-                    color = colors.deadHover
+                    color = COLOR_DEAD_HOVER
         
         cellRect = pygame.rect.Rect(self.posX(j, size), self.posY(i, size), size, size)
         pygame.draw.rect(window, color, cellRect)
@@ -111,19 +109,18 @@ class Board:
         time.sleep(speed)
     
 
-    def draw(self, window, pause, colors):
+    def draw(self, window, pause):
         for i in range(0, self.rows):
             for j in range(0, self.columns):
-                self.cells[i][j].draw(window, pause, colors, i, j, self.cellSize)
+                self.cells[i][j].draw(window, pause, i, j, self.cellSize)
 
 
 
 class App:
-    def __init__(self, columns, rows, cellSize, colors, infinite):
+    def __init__(self, columns, rows, cellSize, infinite):
         self.board = Board(columns, rows, cellSize, infinite)
         self.pause = True
         self.speed = 0.3
-        self.colors = colors
         self.toChange = None
         pygame.init()
         pygame.font.init()
@@ -174,13 +171,13 @@ class App:
 
 
     def showPause(self):
-        pause = pygame.font.SysFont("arial", 15).render("PAUSE", True, self.colors.pause)
+        pause = pygame.font.SysFont("arial", 15).render("PAUSE", True, COLOR_PAUSE)
         self.window.blit(pause, (5, 5))
 
 
     def draw(self):
-        self.window.fill(self.colors.grid)
-        self.board.draw(self.window, self.pause, self.colors)
+        self.window.fill(COLOR_GRID)
+        self.board.draw(self.window, self.pause)
 
 
 
@@ -208,5 +205,5 @@ class App:
 
 
 if __name__ == "__main__":
-    app = App(40, 40, 20, Colors(), True)
+    app = App(30, 30, 20, True)
     app.run()
