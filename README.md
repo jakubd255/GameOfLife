@@ -2,7 +2,7 @@
 
 Implementation of Conway's Game of Life written in Python.
 
-## Requirements
+## Dependencies
 Pygame library
 
 ```
